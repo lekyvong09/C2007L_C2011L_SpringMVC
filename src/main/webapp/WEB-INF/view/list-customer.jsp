@@ -5,9 +5,21 @@
 	<div class="container py-3">
 		<h1 class="test-header">CRM</h1>
 		
-		<div class="d-flex flex-column align-items-center py-5">
+		<div class="d-flex justify-content-between align-items-center py-5">
 			<input class="btn btn-primary vw-25" type="button" value="Add customer" 
 				onclick="window.location.href='new'; return false;" >
+				
+			<form method="get" action="search">
+				<div class="form-group row">
+					<div class="col">
+						<input name="theSearchName" class="form-control mr-2" type="search"
+							placeholder="Search" aria-label="Search"/>
+					</div>
+					<div class="col">
+						<button type="submit" class="btn btn-success">Search</button>
+					</div>
+				</div>
+			</form>
 		</div>
 		
 		<hr class="mx-auto vw-50"/>

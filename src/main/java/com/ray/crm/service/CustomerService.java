@@ -9,4 +9,5 @@ public interface CustomerService {
 	void saveCustomer(Customer customer);
 	Customer getCustomerById(int theId);
 	void deleteCustomer(int theId);
+	List<Customer> searchCustomers(String theSearchName);
 }
