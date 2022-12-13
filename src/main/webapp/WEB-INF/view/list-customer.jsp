@@ -19,15 +19,23 @@
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 					
 				<tbody>
 					<c:forEach items="${customers}" var="item">
+						<!-- http://localhost:8080/customer/load?customerId=${item.id} -->
+						<c:url var="updateLink" value="/customer/load">
+							<c:param name="customerId" value="${item.id}"/>
+						</c:url>
 						<tr>
 							<td>${item.firstName}</td>
 							<td>${item.lastName}</td>
 							<td>${item.email}</td>
+							<td>
+								<a href="${updateLink}">Update</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
