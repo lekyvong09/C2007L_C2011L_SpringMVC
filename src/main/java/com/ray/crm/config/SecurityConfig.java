@@ -22,10 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+				.antMatchers("/resources/**").permitAll()
 				.anyRequest().authenticated() /// any request must be authenticated (check username & pass)
 			.and()
 			.formLogin()
 				.loginPage("/showLoginPage")
+				.loginProcessingUrl("/login")
 				.permitAll(); /// allow anonymous user to access login page
 	}
 }
