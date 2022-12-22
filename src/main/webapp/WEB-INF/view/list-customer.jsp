@@ -1,5 +1,6 @@
 <%@include file="header.jsp" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 </head>
 <body>
@@ -11,7 +12,13 @@
 			</form:form>
 		</div>
 		
-		<h1 class="test-header">CRM</h1>
+		<div class="d-flex align-items-center pt-3 flex-column">
+			<h1>Welcome to CRM system - <sec:authentication property="principal.username"/></h1>
+			<h5>You have roles: <sec:authentication property="principal.authorities"/> </h5>
+		</div>
+		
+		
+		
 		
 		<div class="d-flex justify-content-between align-items-center py-5">
 			<input class="btn btn-primary vw-25" type="button" value="Add customer" 
@@ -39,7 +46,9 @@
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
-						<th>Action</th>
+						<sec:authorize access="hasRole('ADMIN')">
+							<th>Action</th>
+						</sec:authorize>
 					</tr>
 				</thead>
 					
@@ -56,11 +65,13 @@
 							<td>${item.firstName}</td>
 							<td>${item.lastName}</td>
 							<td>${item.email}</td>
-							<td>
-								<a href="${updateLink}">Update</a>
-								 | 
-								<a href="${deleteLink }" onclick="if (!confirm('Are you sure you want to delete?')) return false;">Delete</a>
-							</td>
+							<sec:authorize access="hasRole('ADMIN')">
+								<td>
+									<a href="${updateLink}">Update</a>
+									 | 
+									<a href="${deleteLink }" onclick="if (!confirm('Are you sure you want to delete?')) return false;">Delete</a>
+								</td>
+							</sec:authorize>
 						</tr>
 					</c:forEach>
 				</tbody>
