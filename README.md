@@ -10,7 +10,7 @@ create table customers (
     last_name varchar(68) NOT NULL,
     email varchar(250) NULL,
     PRIMARY KEY (id)
-    );
+);
 
 
 drop table if exists users;
