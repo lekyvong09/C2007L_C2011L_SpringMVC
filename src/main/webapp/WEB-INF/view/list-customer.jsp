@@ -1,8 +1,16 @@
 <%@include file="header.jsp" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 </head>
 <body>
 	<div class="container py-3">
+	
+		<div class="d-flex align-items-end flex-column" style="height: 70px;">
+			<form:form action="${pageContext.request.contextPath}/logout" method="post">
+				<input class="btn btn-success" type="submit" value="Logout"/>
+			</form:form>
+		</div>
+		
 		<h1 class="test-header">CRM</h1>
 		
 		<div class="d-flex justify-content-between align-items-center py-5">
