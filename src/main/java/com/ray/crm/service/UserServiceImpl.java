@@ -1,6 +1,8 @@
 package com.ray.crm.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,20 +14,27 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ray.crm.dao.RoleDAO;
 import com.ray.crm.dao.UserDAO;
+import com.ray.crm.dto.RegisteredUser;
 import com.ray.crm.entity.Role;
 import com.ray.crm.entity.User;
 
 
 @Service("myUserDetails")
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService {
 	private final UserDAO userDAO;
+	private final RoleDAO roleDAO;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserServiceImpl(UserDAO userDAO) {
+	public UserServiceImpl(UserDAO userDAO, RoleDAO roleDAO, PasswordEncoder passwordEncoder) {
 		this.userDAO = userDAO;
+		this.roleDAO = roleDAO;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -49,6 +58,23 @@ public class UserServiceImpl implements UserDetailsService {
 				user.getUsername(), user.getPassword(), grantedAuthorityList);
 		
 		return userDetails;
+	}
+
+	@Override
+	@Transactional
+	public Object save(RegisteredUser registeredUser) {
+		User user = new User();
+		user.setEmail(registeredUser.getEmail());
+		user.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
+		user.setUsername(registeredUser.getUsername());
+		user.setEnabled(true);
+		
+		// get object role => find by role name
+		 
+		Set<Role> roles = new HashSet<Role>(Arrays.asList(roleDAO.findRoleByName("ROLE_EMPLOYEE"))) ;
+		user.setRoles(roles);
+		
+		return userDAO.save(user);
 	}
 	
 }
