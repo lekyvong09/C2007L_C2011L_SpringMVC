@@ -1,5 +1,6 @@
 	<%@include file="header.jsp" %>
 	<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 	<script src="https://kit.fontawesome.com/4dcba643c6.js" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/style.css" />" rel="stylesheet" type="text/css">
 	
@@ -17,8 +18,15 @@
                    style="width:350px;" >
                    
 			<div class="form-floating mb-3">
-				<form:input path="username" class="form-control" id="floatingInputUsername" placeholder="username" />
-				<label for="floatingInputUsername">User name</label>
+				<spring:bind path="username">
+					<form:input path="username" id="floatingInputUsername" placeholder="username" 
+						 class="form-control ${status.error ? 'is-invalid': '' }"/>
+					 <label for="floatingInputUsername">User name</label>
+					 <div class="invalid-feedback">
+					 	<form:errors path="username"/>
+					 </div>
+				</spring:bind>
+				
 			</div>
 			
 			<div class="form-floating mb-3">
