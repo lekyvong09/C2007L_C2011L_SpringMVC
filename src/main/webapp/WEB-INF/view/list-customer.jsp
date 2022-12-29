@@ -46,6 +46,7 @@
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
+						<th>Image</th>
 						<sec:authorize access="hasRole('ADMIN')">
 							<th>Action</th>
 						</sec:authorize>
@@ -65,6 +66,10 @@
 							<td>${item.firstName}</td>
 							<td>${item.lastName}</td>
 							<td>${item.email}</td>
+							<td>
+								<img src="${pageContext.request.contextPath}/images/customer/${item.id}"
+									style="height: 6rem; width: 4rem; object-fit: cover;" alt="temp">
+							</td>
 							<sec:authorize access="hasRole('ADMIN')">
 								<td>
 									<a href="${updateLink}">Update</a>

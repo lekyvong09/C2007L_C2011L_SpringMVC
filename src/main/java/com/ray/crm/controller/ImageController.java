@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/images")
 public class ImageController {
 
-	/// http://localhost/crm/images/customer/8
+	/// http://localhost:8080/crm/images/customer/8
 	@GetMapping(path = "/customer/{customerId}", produces=MediaType.IMAGE_JPEG_VALUE)
 	public byte[] getProfileImage(@PathVariable("customerId") String customerId) throws IOException {
 		String path = "/Users/ray/Dropbox/Aptech/C2007L/SpringMVC/crm/src/main/webapp/resources/images";
