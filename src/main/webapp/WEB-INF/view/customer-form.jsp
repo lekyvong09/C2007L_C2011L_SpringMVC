@@ -8,7 +8,8 @@
 		
 		
 		<div class="d-flex flex-column align-items-center py-5">
-			<form:form action="saveCustomer" modelAttribute="customer" method="post" style="width:350px;">
+			<form:form action="saveCustomer?${_csrf.parameterName}=${_csrf.token}" modelAttribute="customer" method="post" style="width:350px;"
+					enctype="multipart/form-data">
 				<form:hidden path="id" />
 				<div class="form-floating mb-3">
 					<form:input path="firstName" class="form-control" id="firstName" placeholder="firstName"/>
@@ -21,6 +22,10 @@
 				<div class="form-floating mb-3">
 					<form:input path="email" class="form-control" id="email" placeholder="email"/>
 					<label for="email">Email</label>
+				</div>
+				
+				<div class="d-flex justify-content-center mb-3">
+					<input name="file" class="form-control" type="file" accept="image/*">
 				</div>
 				
 				<div class="mt-4 d-flex justify-content-center">

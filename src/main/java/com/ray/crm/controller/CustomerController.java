@@ -1,5 +1,8 @@
 package com.ray.crm.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.ray.crm.dao.CustomerDAO;
 import com.ray.crm.entity.Customer;
@@ -42,8 +46,23 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/saveCustomer")
-	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
-		customerService.saveCustomer(theCustomer);
+	public String saveCustomer(@RequestParam CommonsMultipartFile file, @ModelAttribute("customer") Customer theCustomer) {
+		int customerId = customerService.saveCustomer(theCustomer);
+		
+		String path = "/Users/ray/Dropbox/Aptech/C2007L/SpringMVC/crm/src/main/webapp/resources/images";
+		System.out.println(path + File.separator + file.getOriginalFilename());
+		
+		try {
+			BufferedOutputStream stream = new BufferedOutputStream(
+					new FileOutputStream(new File(path + File.separator + "customer_" + customerId + ".jpg")));
+			byte[] bytes = file.getBytes();
+			stream.write(bytes);
+			stream.flush();
+			stream.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "redirect:/customer/list";
 	}
 	
