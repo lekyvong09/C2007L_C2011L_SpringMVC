@@ -30,8 +30,14 @@
 			</div>
 			
 			<div class="form-floating mb-3">
-				<form:input path="email" type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com" />
-				<label for="floatingInputEmail">Email address</label>
+				<spring:bind path="email">
+					<form:input path="email" id="floatingInputEmail" placeholder="email" 
+						 class="form-control ${status.error ? 'is-invalid': '' }"/>
+					 <label for="floatingInputEmail">email</label>
+					 <div class="invalid-feedback">
+					 	<form:errors path="email"/>
+					 </div>
+				</spring:bind>
 			</div>
 			
 			<div class="form-floating mb-3">

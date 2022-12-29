@@ -3,12 +3,15 @@ package com.ray.crm.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.ray.crm.validation.ValidEmail;
+
 public class RegisteredUser {
 	@NotEmpty(message="username is required")
 	@Size(min=3, message="need at least 3 character")
 	private String username;
 	
 	@NotEmpty(message="username is required")
+	@ValidEmail
 	private String email;
 	
 	@NotEmpty(message="username is required")
